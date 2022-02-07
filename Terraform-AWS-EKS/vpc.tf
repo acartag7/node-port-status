@@ -5,7 +5,7 @@ variable "region" {
 data "aws_availability_zones" "available" {}
 
 locals {
-  cluster_name = "VMware-DEMO-Project"
+  cluster_name = "DEMO-Project"
 }
 
 module "vpc" {

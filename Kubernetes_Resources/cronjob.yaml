@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: node-port-status-job
-  namespace: vmware-nodes-project
+  namespace: nodes-project
 spec:
   schedule: "*/3 * * * *"
   jobTemplate:
@@ -21,7 +21,7 @@ spec:
               image: 247083573128.dkr.ecr.us-east-1.amazonaws.com/node_port_status:latest
               env:
               - name: AWS_BUCKET
-                value: "vmware-node-status-project"
+                value: "node-status-project"
               - name: IGNORE_LIST
                 value: "35 80 111"
               - name: AWS_SECRET_ACCESS_KEY

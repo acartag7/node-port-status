@@ -75,13 +75,13 @@ resource "aws_security_group" "ip_home" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["46.6.8.115/32"]
+    cidr_blocks = ["46.6.8.0/24"]
   }
   egress {
     description = "Allow traffic from Home"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["46.6.8.115/32"]
+    cidr_blocks = ["46.6.8.0/24"]
   }
 }

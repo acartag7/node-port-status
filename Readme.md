@@ -96,7 +96,7 @@ The script basically do the following:
     kind: ServiceAccount
     metadata:
     name: get-node-info
-    namespace: vmware-nodes-project
+    namespace: nodes-project
     ---
     apiVersion: rbac.authorization.k8s.io/v1
     kind: ClusterRole
@@ -121,13 +121,13 @@ The script basically do the following:
     subjects:
     - kind: ServiceAccount
         name: get-node-info
-        namespace: vmware-nodes-project
+        namespace: nodes-project
     ---
     apiVersion: v1
     kind: Secret
     metadata:
     name: aws-credentials
-    namespace: vmware-nodes-project
+    namespace: nodes-project
     type: Opaque
     data:
     AWS_ACCESS_KEY_ID: *******
@@ -142,7 +142,7 @@ The script basically do the following:
     kind: CronJob
     metadata:
     name: node-port-status-job
-    namespace: vmware-nodes-project
+    namespace: nodes-project
     spec:
     schedule: "*/3 * * * *"
     jobTemplate:
@@ -161,7 +161,7 @@ The script basically do the following:
                 image: ***********.dkr.ecr.us-east-1.amazonaws.com/node_port_status:latest
                 env:
                 - name: AWS_BUCKET
-                    value: "vmware-node-status-project"
+                    value: "node-status-project"
                 - name: IGNORE_LIST
                     value: "35 80 111"
                 - name: AWS_SECRET_ACCESS_KEY
@@ -187,15 +187,6 @@ The script basically do the following:
    ```
 
 ### EXTRA
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
 
 
 

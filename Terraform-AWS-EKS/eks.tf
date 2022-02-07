@@ -6,7 +6,7 @@ module "eks" {
   subnets         = module.vpc.public_subnets
 
   tags = {
-    Name = "VMware-DEMO-Project"
+    Name = "DEMO-Project"
   }
 
   vpc_id = module.vpc.vpc_id
