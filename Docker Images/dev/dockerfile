@@ -1,0 +1,14 @@
+#FROM --platform=linux/amd64 amazonlinux:latest
+FROM --platform=linux/amd64  centos:centos7
+RUN yum install epel-release  -y
+RUN yum install nmap unzip util-linux moreutils -y
+RUN yum clean all
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+RUN install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+COPY awscliv2.zip .
+RUN unzip awscliv2.zip
+RUN ./aws/install
+COPY node_port_status.sh .
+RUN chmod +x node_port_status.sh
+
+CMD tail -f /dev/null

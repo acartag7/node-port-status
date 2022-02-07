@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: node-port-status-job
+  namespace: vmware-nodes-project
+spec:
+  schedule: "*/3 * * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        cronjob: node-port-status-job
+    spec:
+      template:
+        metadata:
+          labels:
+            cronjob: node-port-status-job
+      template:
+        spec:
+          containers:
+            - name: node-port-status
+              image: 247083573128.dkr.ecr.us-east-1.amazonaws.com/node_port_status:latest
+              env:
+              - name: AWS_BUCKET
+                value: "vmware-node-status-project"
+              - name: IGNORE_LIST
+                value: "35 80 111"
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: aws-credentials
+                    key: AWS_SECRET_ACCESS_KEY
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: aws-credentials
+                    key: AWS_ACCESS_KEY_ID
+              command: ["./node_port_status.sh"]
+          serviceAccountName: get-node-info
+          restartPolicy: OnFailure
